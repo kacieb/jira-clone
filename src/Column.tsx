@@ -1,15 +1,13 @@
 import "./styles.css";
 
 import * as React from "react";
-import type { Category } from "./App";
+import type { Category, BoxData } from "./Types";
 
-type FunctionReturner = (id: number) => (event) => void;
-export type BoxData = { category: Category; id: number };
+type CallbackFunction = (id: number, event) => void;
 
 type BoxEventListeners = {
-  onClick: FunctionReturner;
-  onDragStart: FunctionReturner;
-  onDragOver: FunctionReturner;
+  onClick: CallbackFunction;
+  onDragStart: CallbackFunction;
 };
 
 type BoxInfo = {
@@ -20,9 +18,12 @@ function Box(props: BoxEventListeners & BoxInfo) {
   return (
     <div
       className="box"
-      onClick={props.onClick(props.id)}
-      onDragStart={props.onDragStart(props.id)}
-      onDragOver={props.onDragOver(props.id)}
+      onClick={(event) => {
+        props.onClick(props.id, event);
+      }}
+      onDragStart={(event) => {
+        props.onDragStart(props.id, event);
+      }}
       draggable="true"
     >
       {props.id}
@@ -43,7 +44,6 @@ export function Column(props: {
       id={val.id}
       onClick={props.box.onClick}
       onDragStart={props.box.onDragStart}
-      onDragOver={props.box.onDragOver}
     />
   ));
 
