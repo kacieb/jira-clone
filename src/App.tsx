@@ -20,18 +20,25 @@ export default function App() {
     { category: Category.Backlog, id: 6 }
   ]);
 
+  const lastID = React.useRef<number>(6);
+
   let myString: String = "Kacie";
 
   // private
-  const setNewField = (id: number, newField: BoxData) => {
+  const replaceField = (id: number, newField: BoxData) => {
     const newData = exampleData.map((u) => (u.id !== id ? u : newField));
     setExampleData(newData);
   };
 
-  // TODO ventually make these APIs use a database. For now, just manage
+  // TODO eventually make these APIs use a database. For now, just manage
   // data as React State and pass down to components as needed.
-  const createTask = () => {
-    /* TODO */
+  const createTask: APIS["createTaskType"] = (category: Category) => {
+    const newTask = { category, id: lastID.current + 1 };
+    const newData = exampleData.concat(newTask);
+
+    // increment lastID for the next task
+    lastID.current += 1;
+    setExampleData(newData);
   };
 
   const deleteTask = () => {
@@ -46,14 +53,14 @@ export default function App() {
       category: newCategory,
       id: id
     };
-    setNewField(id, editedUser);
+    replaceField(id, editedUser);
   };
 
   return (
     <div className="App">
       <h1>Hello {myString}</h1>
       <h2>Start editing to see some magic happen!</h2>
-      <NewTaskModal />
+      <NewTaskModal createTask={createTask} />
       <TaskDisplay data={exampleData} updateTaskCategory={updateTaskCategory} />
     </div>
   );
