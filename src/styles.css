@@ -1,6 +1,7 @@
 .App {
   font-family: sans-serif;
   text-align: center;
+  height: 100%;
 }
 
 .box {
@@ -36,4 +37,35 @@
   flex-direction: row;
   justify-content: center;
   flex-wrap: wrap;
+}
+
+.full-screen {
+  position: fixed;
+  height: 100vh;
+  width: 100vw;
+  top: 0;
+  left: 0;
+  background-color: gray;
+  opacity: 0.5;
+}
+
+.modal {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.modal-content {
+  width: 300px;
+  border-radius: 16px;
+  border-style: solid;
+  background-color: white;
+  opacity: 1;
+  box-shadow: 10px 10px 10px gray;
+
+  /* center on screen */
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
