@@ -14,6 +14,13 @@ export default function NewTaskModal(props: {
     setShowModal(false);
   };
 
+  const onClose = (event) => {
+    setShowModal(false);
+
+    // reset the form
+    setCategory(Category.Backlog);
+  };
+
   return (
     <>
       <button
@@ -45,12 +52,7 @@ export default function NewTaskModal(props: {
                 <br />
                 <input style={{ margin: 7 }} type="Submit" value="Submit" />
               </form>
-              <button
-                style={{ margin: 7, float: "right" }}
-                onClick={() => {
-                  setShowModal(false);
-                }}
-              >
+              <button style={{ margin: 7, float: "right" }} onClick={onClose}>
                 Close
               </button>
             </div>
