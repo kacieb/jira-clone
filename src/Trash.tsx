@@ -48,7 +48,12 @@ export default function Trash(props: {
     setColor("black");
   };
   return (
-    <div onDragOver={onDragOver} onDragLeave={onDragLeave} onDrop={onDrop}>
+    <div
+      className="flex-item"
+      onDragOver={onDragOver}
+      onDragLeave={onDragLeave}
+      onDrop={onDrop}
+    >
       <ClosedTrashCan size={50} color={color} />
     </div>
   );

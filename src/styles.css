@@ -40,6 +40,10 @@
   flex-wrap: wrap;
 }
 
+.flex-item {
+  flex: 1;
+}
+
 .flex-container {
   display: flex;
   flex-direction: row;

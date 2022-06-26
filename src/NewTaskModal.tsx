@@ -22,7 +22,7 @@ export default function NewTaskModal(props: {
   };
 
   return (
-    <div>
+    <div className="flex-item">
       <button
         onClick={(e) => {
           setShowModal(true);

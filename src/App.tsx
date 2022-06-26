@@ -6,20 +6,20 @@ import NewTaskModal from "./NewTaskModal";
 import Trash from "./Trash";
 import { Category, BoxData, APIS } from "./Types";
 
-/**
- * Data APIs at the moment
- */
+const initialData = [
+  { category: Category.Backlog, id: 0 },
+  { category: Category.InProgress, id: 1 },
+  { category: Category.InProgress, id: 2 },
+  { category: Category.Done, id: 3 },
+  { category: Category.Done, id: 4 },
+  { category: Category.Done, id: 5 },
+  { category: Category.Backlog, id: 6 }
+];
 
 export default function App() {
-  const [exampleData, setExampleData] = React.useState<Array<BoxData>>(() => [
-    { category: Category.Backlog, id: 0 },
-    { category: Category.InProgress, id: 1 },
-    { category: Category.InProgress, id: 2 },
-    { category: Category.Done, id: 3 },
-    { category: Category.Done, id: 4 },
-    { category: Category.Done, id: 5 },
-    { category: Category.Backlog, id: 6 }
-  ]);
+  const [exampleData, setExampleData] = React.useState<Array<BoxData>>(
+    () => initialData
+  );
 
   const lastID = React.useRef<number>(6);
 
@@ -31,6 +31,11 @@ export default function App() {
   const replaceField = (id: number, newField: BoxData) => {
     const newData = exampleData.map((u) => (u.id !== id ? u : newField));
     setExampleData(newData);
+  };
+
+  // private
+  const reset = () => {
+    setExampleData(initialData);
   };
 
   // TODO eventually make these APIs use a database. For now, just manage
@@ -77,6 +82,13 @@ export default function App() {
       <h2>Start editing to see some magic happen!</h2>
       <div className="flex-container-space-evenly">
         <NewTaskModal createTask={createTask} />
+        <button
+          onClick={() => {
+            reset();
+          }}
+        >
+          Reset
+        </button>
         <Trash deleteTask={deleteTask} activeTask={activeTask} />
       </div>
       <TaskDisplay
