@@ -3,6 +3,7 @@ import "./styles.css";
 import * as React from "react";
 import TaskDisplay from "./TaskDisplay";
 import NewTaskModal from "./NewTaskModal";
+import Trash from "./Trash";
 import { Category, BoxData, APIS } from "./Types";
 
 /**
@@ -60,7 +61,10 @@ export default function App() {
     <div className="App">
       <h1>Hello {myString}</h1>
       <h2>Start editing to see some magic happen!</h2>
-      <NewTaskModal createTask={createTask} />
+      <div className="flex-container-space-evenly">
+        <NewTaskModal createTask={createTask} />
+        <Trash />
+      </div>
       <TaskDisplay data={exampleData} updateTaskCategory={updateTaskCategory} />
     </div>
   );
