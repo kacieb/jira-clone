@@ -1,10 +1,17 @@
-function ClosedTrashCan() {
+import * as React from "react";
+
+import { APIS } from "./Types";
+
+type ClosedTrashCanProps = { size: number; color: string };
+
+function ClosedTrashCan(props: ClosedTrashCanProps) {
+  const { size, color } = props;
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width="50"
-      height="50"
-      fill="currentColor"
+      width={size}
+      height={size}
+      fill={color}
       viewBox="0 0 16 16"
     >
       {" "}
@@ -17,6 +24,32 @@ function ClosedTrashCan() {
   );
 }
 
-export default function Trash(props: {}) {
-  return <ClosedTrashCan />;
+export default function Trash(props: {
+  activeTask: number | null;
+  deleteTask: APIS["deleteTaskType"];
+}) {
+  const { activeTask, deleteTask } = props;
+  const [color, setColor] = React.useState("black");
+  const onDragOver = (event) => {
+    event.preventDefault(); // prevent default to allow "drop" event
+    setColor("red");
+  };
+
+  const onDragLeave = (event) => {
+    setColor("black");
+  };
+
+  const onDrop = (event) => {
+    if (activeTask != null) {
+      deleteTask(activeTask);
+    } else {
+      console.error("Tried to delete task, but none was active.");
+    }
+    setColor("black");
+  };
+  return (
+    <div onDragOver={onDragOver} onDragLeave={onDragLeave} onDrop={onDrop}>
+      <ClosedTrashCan size={50} color={color} />
+    </div>
+  );
 }

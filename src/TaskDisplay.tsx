@@ -5,10 +5,14 @@ import { Column } from "./Column";
 export default function TaskDisplay(props: {
   data: Array<BoxData>;
   updateTaskCategory: APIS["updateTaskCategoryType"];
+  setActiveTask: (id: number) => void;
+  getTask: APIS["getTaskType"];
 }) {
-  const { updateTaskCategory, data } = props;
+  const { updateTaskCategory, data, setActiveTask, getTask } = props;
 
+  // this should match `activeTask` in App.tsx
   const dragItem = React.useRef<number>();
+
   const dragOverColumn = React.useRef<Category>();
 
   const stateMap = {
@@ -23,13 +27,15 @@ export default function TaskDisplay(props: {
 
   const dragItemStart = (id: number, event) => {
     dragItem.current = id;
+    setActiveTask(id);
   };
 
   const dragOverCategory = (category: Category, event) => {
     dragOverColumn.current = category;
 
     if (dragItem.current != null) {
-      if (data[dragItem.current].category !== category) {
+      const currentItem = getTask(dragItem.current);
+      if (currentItem?.category !== category) {
         event.preventDefault(); // prevent default to allow "drop" event
       }
     } else {
@@ -46,6 +52,7 @@ export default function TaskDisplay(props: {
   };
 
   const filterBy = (category: Category) => {
+    // TODO - this should maybe use an API instead of directly filtering on data
     return data.filter((item) => item.category === category);
   };
 

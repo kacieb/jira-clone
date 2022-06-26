@@ -25,6 +25,8 @@ export default function App() {
 
   let myString: String = "Kacie";
 
+  const [activeTask, setActiveTask] = React.useState<number | null>(null);
+
   // private
   const replaceField = (id: number, newField: BoxData) => {
     const newData = exampleData.map((u) => (u.id !== id ? u : newField));
@@ -42,8 +44,20 @@ export default function App() {
     setExampleData(newData);
   };
 
-  const deleteTask = () => {
-    /* TODO */
+  const getTask: APIS["getTaskType"] = (id: number) => {
+    for (let i = 0; i < exampleData.length; i++) {
+      if (exampleData[i].id === id) {
+        return exampleData[i];
+      }
+    }
+
+    console.error("Tried to access task " + id + " which does not exist");
+    return null;
+  };
+
+  const deleteTask: APIS["deleteTaskType"] = (id: number) => {
+    const newData = exampleData.filter((item) => item.id !== id);
+    setExampleData(newData);
   };
 
   const updateTaskCategory: APIS["updateTaskCategoryType"] = (
@@ -63,9 +77,14 @@ export default function App() {
       <h2>Start editing to see some magic happen!</h2>
       <div className="flex-container-space-evenly">
         <NewTaskModal createTask={createTask} />
-        <Trash />
+        <Trash deleteTask={deleteTask} activeTask={activeTask} />
       </div>
-      <TaskDisplay data={exampleData} updateTaskCategory={updateTaskCategory} />
+      <TaskDisplay
+        data={exampleData}
+        updateTaskCategory={updateTaskCategory}
+        setActiveTask={setActiveTask}
+        getTask={getTask}
+      />
     </div>
   );
 }
