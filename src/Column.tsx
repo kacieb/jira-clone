@@ -11,7 +11,7 @@ type BoxEventListeners = {
 };
 
 type BoxInfo = {
-  id: number;
+  data: BoxData;
 };
 
 function Box(props: BoxEventListeners & BoxInfo) {
@@ -19,14 +19,16 @@ function Box(props: BoxEventListeners & BoxInfo) {
     <div
       className="box"
       onClick={(event) => {
-        props.onClick(props.id, event);
+        props.onClick(props.data.id, event);
       }}
       onDragStart={(event) => {
-        props.onDragStart(props.id, event);
+        props.onDragStart(props.data.id, event);
       }}
       draggable="true"
     >
-      {props.id}
+      {props.data.id}
+      <br />
+      {props.data.title}
     </div>
   );
 }
@@ -41,7 +43,7 @@ export function Column(props: {
   const items = props.data.map((val) => (
     <Box
       key={val.id}
-      id={val.id}
+      data={val}
       onClick={props.box.onClick}
       onDragStart={props.box.onDragStart}
     />

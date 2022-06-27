@@ -7,13 +7,9 @@ import Trash from "./Trash";
 import { Category, BoxData, APIS } from "./Types";
 
 const initialData = [
-  { category: Category.Backlog, id: 0 },
-  { category: Category.InProgress, id: 1 },
-  { category: Category.InProgress, id: 2 },
-  { category: Category.Done, id: 3 },
-  { category: Category.Done, id: 4 },
-  { category: Category.Done, id: 5 },
-  { category: Category.Backlog, id: 6 }
+  { category: Category.Backlog, id: 0, title: "Add database for tasks" },
+  { category: Category.InProgress, id: 1, title: "Add more fields to tasks" },
+  { category: Category.Done, id: 2, title: "Add a way to delete tasks" }
 ];
 
 export default function App() {
@@ -40,8 +36,11 @@ export default function App() {
 
   // TODO eventually make these APIs use a database. For now, just manage
   // data as React State and pass down to components as needed.
-  const createTask: APIS["createTaskType"] = (category: Category) => {
-    const newTask = { category, id: lastID.current + 1 };
+  const createTask: APIS["createTaskType"] = (
+    category: Category,
+    title: string
+  ) => {
+    const newTask = { category, title, id: lastID.current + 1 };
     const newData = exampleData.concat(newTask);
 
     // increment lastID for the next task
@@ -69,11 +68,11 @@ export default function App() {
     id: number,
     newCategory: Category
   ) => {
-    const editedUser = {
-      category: newCategory,
-      id: id
-    };
-    replaceField(id, editedUser);
+    const taskFromID = getTask(id);
+    if (taskFromID != null) {
+      const updatedTask = { ...taskFromID, category: newCategory };
+      replaceField(id, updatedTask);
+    }
   };
 
   return (
