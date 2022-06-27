@@ -1,6 +1,7 @@
 import * as React from "react";
 
 import { APIS, Category } from "./Types";
+import Modal from "./Modal";
 
 export default function NewTaskModal(props: {
   createTask: APIS["createTaskType"];
@@ -36,44 +37,41 @@ export default function NewTaskModal(props: {
         Create New Task
       </button>
       {showModal && (
-        <>
-          <div className="full-screen" />
-          <div className="modal-content" role="dialog">
-            <form onSubmit={onSubmit}>
-              <label htmlFor="select-category">
-                Select a category:
-                <select
-                  id="select-category"
-                  value={category}
-                  onChange={(event) => {
-                    setCategory(event.target.value);
-                  }}
-                >
-                  <option value={Category.Backlog}>Backlog</option>
-                  <option value={Category.InProgress}>In Progress</option>
-                  <option value={Category.Done}>Done</option>
-                </select>
-              </label>
-              <br />
-              <label htmlFor="input-title">Title: </label>
-              <input
-                id="input-title"
-                value={title}
-                onChange={(event) => setTitle(event.target.value)}
-              />
-              <br />
-              <input
-                style={{ margin: 7 }}
-                type="Submit"
-                value="Submit"
-                readOnly={true}
-              />
-            </form>
-            <button style={{ margin: 7, float: "right" }} onClick={onClose}>
-              Close
-            </button>
-          </div>
-        </>
+        <Modal>
+          <form onSubmit={onSubmit}>
+            <label htmlFor="select-category">
+              Select a category:
+              <select
+                id="select-category"
+                value={category}
+                onChange={(event) => {
+                  setCategory(event.target.value);
+                }}
+              >
+                <option value={Category.Backlog}>Backlog</option>
+                <option value={Category.InProgress}>In Progress</option>
+                <option value={Category.Done}>Done</option>
+              </select>
+            </label>
+            <br />
+            <label htmlFor="input-title">Title: </label>
+            <input
+              id="input-title"
+              value={title}
+              onChange={(event) => setTitle(event.target.value)}
+            />
+            <br />
+            <input
+              style={{ margin: 7 }}
+              type="Submit"
+              value="Submit"
+              readOnly={true}
+            />
+          </form>
+          <button style={{ margin: 7, float: "right" }} onClick={onClose}>
+            Close
+          </button>
+        </Modal>
       )}
     </div>
   );
