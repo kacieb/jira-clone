@@ -37,7 +37,7 @@ export default function NewTaskModal(props: {
         Create New Task
       </button>
       {showModal && (
-        <Modal>
+        <Modal onClose={onClose}>
           <form onSubmit={onSubmit}>
             <label htmlFor="select-category">
               Select a category:
@@ -68,9 +68,6 @@ export default function NewTaskModal(props: {
               readOnly={true}
             />
           </form>
-          <button style={{ margin: 7, float: "right" }} onClick={onClose}>
-            Close
-          </button>
         </Modal>
       )}
     </div>
