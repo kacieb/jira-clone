@@ -12,6 +12,15 @@
   border-radius: 16px;
   border-style: solid;
   background-color: lavender;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.edit-button {
+  margin-top: auto;
+  margin-left: auto;
+  padding: 4px;
 }
 
 .column {
