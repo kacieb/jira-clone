@@ -13,8 +13,7 @@ type CreateProps = {
 
 type EditProps = {
   type: "Edit";
-  updateTaskCategory: APIS["updateTaskCategoryType"];
-  updateTaskTitle: APIS["updateTaskTitleType"];
+  updateTask: APIS["updateTaskType"];
   currentTaskID: number;
 
   onSubmit: () => void;
@@ -33,12 +32,13 @@ export default function TaskModal(props: CreateProps | EditProps) {
     if (props.type === "Create") {
       props.createTask(category, title);
     } else {
-      props.updateTaskCategory(props.currentTaskID, category);
-      props.updateTaskTitle(props.currentTaskID, title);
+      props.updateTask(props.currentTaskID, category, title);
     }
 
     event.preventDefault(); // prevents page from refreshing on submit
-    resetForm();
+    if (props.type === "Create") {
+      resetForm();
+    }
 
     props.onSubmit();
   };

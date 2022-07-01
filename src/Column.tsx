@@ -51,8 +51,7 @@ type BoxEventListeners = {
 };
 
 type BoxAPIs = {
-  updateTaskCategory: APIS["updateTaskCategoryType"];
-  updateTaskTitle: APIS["updateTaskTitleType"];
+  updateTask: APIS["updateTaskType"];
 };
 
 type BoxInfo = {
@@ -85,14 +84,14 @@ function Box(props: BoxEventListeners & BoxAPIs & BoxInfo) {
         />
       </div>
       {showModal && (
-        <Modal
-          onClose={() => {
+        <TaskModal
+          type="Edit"
+          onSubmit={() => {
             setShowModal(false);
           }}
-        >
-          <div>Hello World!</div>
-          {/* TODO make this an edit section! Use the APIs! */}
-        </Modal>
+          updateTask={props.updateTask}
+          currentTaskID={props.data.id}
+        />
       )}
     </>
   );
@@ -112,8 +111,7 @@ export function Column(props: {
       // TODO there is probably a nicer way to do this by spreading
       onClick={props.box.onClick}
       onDragStart={props.box.onDragStart}
-      updateTaskCategory={props.box.updateTaskCategory}
-      updateTaskTitle={props.box.updateTaskTitle}
+      updateTask={props.box.updateTask}
     />
   ));
 

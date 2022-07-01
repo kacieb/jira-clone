@@ -76,13 +76,18 @@ export default function App() {
     }
   };
 
-  const updateTaskTitle: APIS["updateTaskTitleType"] = (
+  const updateTask: APIS["updateTaskType"] = (
     id: number,
+    newCategory: Category,
     newTitle: string
   ) => {
     const taskFromID = getTask(id);
     if (taskFromID != null) {
-      const updatedTask = { ...taskFromID, title: newTitle };
+      const updatedTask = {
+        ...taskFromID,
+        category: newCategory,
+        title: newTitle
+      };
       replaceField(id, updatedTask);
     }
   };
@@ -105,7 +110,7 @@ export default function App() {
       <TaskDisplay
         data={exampleData}
         updateTaskCategory={updateTaskCategory}
-        updateTaskTitle={updateTaskTitle}
+        updateTask={updateTask}
         setActiveTask={setActiveTask}
         getTask={getTask}
       />

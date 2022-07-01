@@ -5,7 +5,7 @@ import { Column } from "./Column";
 export default function TaskDisplay(props: {
   data: Array<BoxData>;
   updateTaskCategory: APIS["updateTaskCategoryType"];
-  updateTaskTitle: APIS["updateTaskTitleType"];
+  updateTask: APIS["updateTaskType"];
   setActiveTask: (id: number) => void;
   getTask: APIS["getTaskType"];
 }) {
@@ -23,7 +23,7 @@ export default function TaskDisplay(props: {
   };
 
   const itemClick = (id: number, event) => {
-    updateTaskCategory(id, stateMap[data[id].category]);
+    updateTaskCategory(id, stateMap[data[id].category]); // TODO I don't think this is right
   };
 
   const dragItemStart = (id: number, event) => {
@@ -63,7 +63,8 @@ export default function TaskDisplay(props: {
       data={filterBy(category)}
       box={{
         onClick: itemClick,
-        onDragStart: dragItemStart
+        onDragStart: dragItemStart,
+        updateTask: props.updateTask
       }}
       onDragOver={(event) => {
         dragOverCategory(category, event);
