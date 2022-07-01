@@ -2,7 +2,8 @@ import "./styles.css";
 
 import * as React from "react";
 import TaskDisplay from "./TaskDisplay";
-import NewTaskModal from "./NewTaskModal";
+import TaskModal from "./TaskModal";
+import CreateNewTaskButton from "./CreateNewTaskButton";
 import Trash from "./Trash";
 import { Category, BoxData, APIS } from "./Types";
 
@@ -75,12 +76,23 @@ export default function App() {
     }
   };
 
+  const updateTaskTitle: APIS["updateTaskTitleType"] = (
+    id: number,
+    newTitle: string
+  ) => {
+    const taskFromID = getTask(id);
+    if (taskFromID != null) {
+      const updatedTask = { ...taskFromID, title: newTitle };
+      replaceField(id, updatedTask);
+    }
+  };
+
   return (
     <div className="App">
       <h1>Hello {myString}</h1>
       <h2>Start editing to see some magic happen!</h2>
       <div className="flex-container-space-evenly">
-        <NewTaskModal createTask={createTask} />
+        <CreateNewTaskButton createTask={createTask} />
         <button
           onClick={() => {
             reset();
@@ -93,6 +105,7 @@ export default function App() {
       <TaskDisplay
         data={exampleData}
         updateTaskCategory={updateTaskCategory}
+        updateTaskTitle={updateTaskTitle}
         setActiveTask={setActiveTask}
         getTask={getTask}
       />

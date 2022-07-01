@@ -1,18 +1,30 @@
 import "./styles.css";
 
 import * as React from "react";
-import type { Category, BoxData } from "./Types";
+import type { Category, BoxData, APIS } from "./Types";
 import Modal from "./Modal";
+import TaskModal from "./TaskModal";
 
 type CallbackFunction = (id: number, event) => void;
 
 function EditButton(props: { onClick: (event) => void }) {
+  const [color, setColor] = React.useState("black");
   return (
-    <div role="button" className="edit-button" onClick={props.onClick}>
+    <div
+      role="button"
+      className="edit-button"
+      onClick={props.onClick}
+      onPointerEnter={(event) => {
+        setColor("green");
+      }}
+      onPointerLeave={(event) => {
+        setColor("black");
+      }}
+    >
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 24 24"
-        fill={"black"}
+        fill={color}
         width={30}
       >
         <g id="Layer_2" data-name="Layer 2">
@@ -38,11 +50,16 @@ type BoxEventListeners = {
   onDragStart: CallbackFunction;
 };
 
+type BoxAPIs = {
+  updateTaskCategory: APIS["updateTaskCategoryType"];
+  updateTaskTitle: APIS["updateTaskTitleType"];
+};
+
 type BoxInfo = {
   data: BoxData;
 };
 
-function Box(props: BoxEventListeners & BoxInfo) {
+function Box(props: BoxEventListeners & BoxAPIs & BoxInfo) {
   const [showModal, setShowModal] = React.useState(false);
   return (
     <>
@@ -74,7 +91,7 @@ function Box(props: BoxEventListeners & BoxInfo) {
           }}
         >
           <div>Hello World!</div>
-          {/* TODO make this an edit section! */}
+          {/* TODO make this an edit section! Use the APIs! */}
         </Modal>
       )}
     </>
@@ -86,14 +103,17 @@ export function Column(props: {
   data: Array<BoxData>;
   onDragOver: (event) => void;
   onDrop: () => void;
-  box: BoxEventListeners;
+  box: BoxEventListeners & BoxAPIs;
 }) {
   const items = props.data.map((val) => (
     <Box
       key={val.id}
       data={val}
+      // TODO there is probably a nicer way to do this by spreading
       onClick={props.box.onClick}
       onDragStart={props.box.onDragStart}
+      updateTaskCategory={props.box.updateTaskCategory}
+      updateTaskTitle={props.box.updateTaskTitle}
     />
   ));
 

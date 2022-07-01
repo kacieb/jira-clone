@@ -6,6 +6,8 @@ export enum Category {
 
 export type APIS = {
   updateTaskCategoryType: (id: number, newCategory: Category) => void;
+  updateTaskTitleType: (id: number, title: string) => void;
+
   createTaskType: (category: Category, title: string) => void;
   getTaskType: (id: number) => BoxData | null;
   deleteTaskType: (id: number) => void;

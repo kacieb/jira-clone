@@ -5,6 +5,7 @@ import { Column } from "./Column";
 export default function TaskDisplay(props: {
   data: Array<BoxData>;
   updateTaskCategory: APIS["updateTaskCategoryType"];
+  updateTaskTitle: APIS["updateTaskTitleType"];
   setActiveTask: (id: number) => void;
   getTask: APIS["getTaskType"];
 }) {
