@@ -33,12 +33,14 @@ export default function EditTaskForm(props: {
         </select>
       </label>
       <br />
-      <label htmlFor="input-title">Title: </label>
-      <input
-        id="input-title"
-        value={currentTitle}
-        onChange={(event) => onTitleChange(event.target.value)}
-      />
+      <label htmlFor="input-title">
+        Title:
+        <textarea
+          id="input-title"
+          value={currentTitle}
+          onChange={(event) => onTitleChange(event.target.value)}
+        ></textarea>
+      </label>
       <br />
       <input
         style={{ margin: 7 }}

@@ -10,7 +10,13 @@ import { Category, BoxData, APIS } from "./Types";
 const initialData = [
   { category: Category.Backlog, id: 0, title: "Add database for tasks" },
   { category: Category.InProgress, id: 1, title: "Add more fields to tasks" },
-  { category: Category.Done, id: 2, title: "Add a way to delete tasks" }
+  { category: Category.Done, id: 2, title: "Add a way to delete tasks" },
+  {
+    category: Category.InProgress,
+    id: 3,
+    title: "Handle long titles gracefully."
+  },
+  { category: Category.Backlog, id: 4, title: "Make TaskModal prettier" }
 ];
 
 export default function App() {
