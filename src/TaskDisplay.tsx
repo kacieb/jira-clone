@@ -23,7 +23,10 @@ export default function TaskDisplay(props: {
   };
 
   const itemClick = (id: number, event) => {
-    updateTaskCategory(id, stateMap[data[id].category]); // TODO I don't think this is right
+    const currentItem = getTask(id);
+    if (currentItem != null) {
+      updateTaskCategory(id, stateMap[currentItem.category]);
+    }
   };
 
   const dragItemStart = (id: number, event) => {

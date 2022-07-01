@@ -2,7 +2,6 @@ import "./styles.css";
 
 import * as React from "react";
 import type { Category, BoxData, APIS } from "./Types";
-import Modal from "./Modal";
 import TaskModal from "./TaskModal";
 
 type CallbackFunction = (id: number, event) => void;
