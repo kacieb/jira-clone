@@ -2,7 +2,6 @@ import "./styles.css";
 
 import * as React from "react";
 import TaskDisplay from "./TaskDisplay";
-import TaskModal from "./TaskModal";
 import CreateNewTaskButton from "./CreateNewTaskButton";
 import Trash from "./Trash";
 import { Category, BoxData, APIS } from "./Types";
