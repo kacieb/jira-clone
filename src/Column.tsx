@@ -90,6 +90,7 @@ function Box(props: BoxEventListeners & BoxAPIs & BoxInfo) {
           }}
           updateTask={props.updateTask}
           currentTaskID={props.data.id}
+          initialData={props.data}
         />
       )}
     </>

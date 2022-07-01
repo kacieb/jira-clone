@@ -1,12 +1,13 @@
 import * as React from "react";
 
-import { APIS, Category } from "./Types";
+import { APIS, BoxData, Category } from "./Types";
 import Modal from "./Modal";
 import EditTaskForm from "./EditTaskForm";
 
 type CreateProps = {
   type: "Create";
   createTask: APIS["createTaskType"];
+  initialData?: BoxData;
 
   onSubmit: () => void; // TODO maybe rename this to be more clear
 };
@@ -15,13 +16,18 @@ type EditProps = {
   type: "Edit";
   updateTask: APIS["updateTaskType"];
   currentTaskID: number;
+  initialData: BoxData;
 
   onSubmit: () => void;
 };
 
 export default function TaskModal(props: CreateProps | EditProps) {
-  const [category, setCategory] = React.useState<Category>(Category.Backlog);
-  const [title, setTitle] = React.useState<string>("");
+  const [category, setCategory] = React.useState<Category>(
+    props.initialData?.category ?? Category.Backlog
+  );
+  const [title, setTitle] = React.useState<string>(
+    props.initialData?.title ?? ""
+  );
 
   const resetForm = () => {
     setCategory(Category.Backlog);
